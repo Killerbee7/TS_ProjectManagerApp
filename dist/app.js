@@ -24,8 +24,9 @@ function validate(validatableInput) {
     }
     if (validatableInput.max != null &&
         typeof validatableInput.value === 'number') {
-        isValid = isValid && validatableInput.value >= validatableInput.max;
+        isValid = isValid && validatableInput.value <= validatableInput.max;
     }
+    return isValid;
 }
 function autoBind(_, _2, descriptor) {
     const originalMethod = descriptor.value;
@@ -55,9 +56,25 @@ class ProjectInput {
         const enteredTitle = this.titleInputElement.value;
         const enteredDescription = this.descriptionInputElement.value;
         const enteredPeople = this.peopleInputElement.value;
-        if (enteredTitle.trim().length === 0 ||
-            enteredDescription.trim().length === 0 ||
-            enteredPeople.trim().length === 0) {
+        const titleValidatable = {
+            value: enteredTitle,
+            required: true,
+            minLength: 5,
+        };
+        const descriptionValidatable = {
+            value: enteredDescription,
+            required: true,
+            minLength: 5,
+        };
+        const peopleValidatable = {
+            value: +enteredPeople,
+            required: true,
+            min: 1,
+            max: 10,
+        };
+        if (!validate(titleValidatable)
+            || !validate(descriptionValidatable)
+            || !validate(peopleValidatable)) {
             alert("Invalid Input, try again");
         }
         else {
