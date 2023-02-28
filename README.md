@@ -3,7 +3,7 @@
 This project template can be used to start any TypeScript project from scratch
 The output directory is automatically generated based on tsconfig.json
 
-# Steps to follow
+# Steps to follow:
 
 1. `npm install` (to install lightserver)
 2. `npm start` (to start the lightserver)
